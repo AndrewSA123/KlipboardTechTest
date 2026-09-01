@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="FaultTriage.Api/FaultTriage.Api.csproj" />
+  <Project Path="FaultTriage.Core/FaultTriage.Core.csproj" />
+  <Project Path="FaultTriage.Infrastructure/FaultTriage.Infrastructure.csproj" />
+  <Project Path="FaultTriage.Tests/FaultTriage.Tests.csproj" />
+</Solution>
