@@ -1,6 +1,6 @@
 using FaultTriage.Api.Models;
 using FaultTriage.Core;
-using FaultTriage.Infrastructure;
+using FaultTriage.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FaultTriage.Api.Controllers;
