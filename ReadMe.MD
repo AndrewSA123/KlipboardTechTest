@@ -6,7 +6,7 @@ affected systems, severity, clarifying questions, and suggested next steps.
 
 ## Tech stack
 
-- **Backend**: .NET 8, ASP.NET Core Web API (controllers)
+- **Backend**: .NET 10, ASP.NET Core Web API (controllers)
 - **Frontend**: React + TypeScript (Vite), Tailwind CSS
 - **AI**: Groq API (OpenAI-compatible), `openai/gpt-oss-120b`
 
@@ -24,7 +24,7 @@ docs/                          # Supporting documentation (AI usage notes, etc.)
 
 ## Prerequisites
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download)
 - [Node.js](https://nodejs.org) (v18+) and npm
 - A free [Groq API key](https://console.groq.com) — see setup below
 
