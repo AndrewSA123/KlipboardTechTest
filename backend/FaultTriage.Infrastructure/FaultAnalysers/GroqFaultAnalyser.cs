@@ -1,13 +1,15 @@
 ﻿using FaultTriage.Core;
+using FaultTriage.Infrastructure.Configuration;
+using FaultTriage.Infrastructure.Exceptions;
 using FaultTriage.Infrastructure.Models.Groq;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace FaultTriage.Infrastructure;
+namespace FaultTriage.Infrastructure.FaultAnalysers;
 
-public class GroqFaultAnalyzer : IFaultAnalyzer
+public class GroqFaultAnalyser : IFaultAnalyser
 {
     private readonly HttpClient _httpClient;
     private readonly GroqOptions _options;
@@ -37,7 +39,7 @@ public class GroqFaultAnalyzer : IFaultAnalyzer
         not a customer.
         """;
 
-    public GroqFaultAnalyzer(HttpClient httpClient, IOptions<GroqOptions> options)
+    public GroqFaultAnalyser(HttpClient httpClient, IOptions<GroqOptions> options)
     {
         _httpClient = httpClient;
         _options = options.Value;
@@ -67,24 +69,24 @@ public class GroqFaultAnalyzer : IFaultAnalyzer
         if (!response.IsSuccessStatusCode)
         {
             var errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
-            throw new FaultAnalyzerException($"Groq API returned {(int)response.StatusCode}: {errorBody}");
+            throw new FaultAnalyserException($"Groq API returned {(int)response.StatusCode}: {errorBody}");
         }
 
         var completion = await response.Content
             .ReadFromJsonAsync<GroqChatCompletionResponse>(JsonOptions, cancellationToken)
-            ?? throw new FaultAnalyzerException("Groq API returned an empty response.");
+            ?? throw new FaultAnalyserException("Groq API returned an empty response.");
 
         var content = completion.Choices.FirstOrDefault()?.Message.Content
-            ?? throw new FaultAnalyzerException("Groq API response contained no message content.");
+            ?? throw new FaultAnalyserException("Groq API response contained no message content.");
 
         try
         {
             return JsonSerializer.Deserialize<FaultAnalysis>(content, JsonOptions)
-                ?? throw new FaultAnalyzerException("Failed to parse fault analysis from model response.");
+                ?? throw new FaultAnalyserException("Failed to parse fault analysis from model response.");
         }
         catch (JsonException ex)
         {
-            throw new FaultAnalyzerException("Model response was not valid JSON matching the expected schema.", ex);
+            throw new FaultAnalyserException("Model response was not valid JSON matching the expected schema.", ex);
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿namespace FaultTriage.Infrastructure;
+﻿namespace FaultTriage.Infrastructure.Exceptions;
 
-public class FaultAnalyzerException : Exception
+public class FaultAnalyserException : Exception
 {
-    public FaultAnalyzerException(string message) : base(message) { }
-    public FaultAnalyzerException(string message, Exception innerException) : base(message, innerException) { }
+    public FaultAnalyserException(string message) : base(message) { }
+    public FaultAnalyserException(string message, Exception innerException) : base(message, innerException) { }
 }

@@ -1,6 +1,6 @@
 ﻿namespace FaultTriage.Core;
 
-public interface IFaultAnalyzer
+public interface IFaultAnalyser
 {
     Task<FaultAnalysis> AnalyzeAsync(string faultDescription, CancellationToken cancellationToken = default);
 }
